@@ -16,6 +16,7 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libtool
 BuildRequires:	re2c
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 Syck is an extension for reading and writing YAML swiftly in popular scripting
