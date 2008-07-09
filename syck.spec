@@ -5,7 +5,7 @@
 Summary:	A library for reading and writing YAML
 Name:		syck
 Version:	0.55
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	BSD (and D&R) 
 Group:		System/Libraries
 URL:		http://www.whytheluckystiff.net/syck/
@@ -16,7 +16,7 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libtool
 BuildRequires:	re2c
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Syck is an extension for reading and writing YAML swiftly in popular scripting
@@ -35,10 +35,10 @@ language's symbol table.
 %package -n	%{develname}
 Summary:	Static library and header files for the syck library
 Group:		Development/C
-Provides:	%{name}-devel = %{version}
-Provides:	%{libname}-devel = %{version}
-Obsoletes:	%{libname}-devel
 Requires:	%{libname} = %{version}
+Provides:	%{name}-devel = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
+Obsoletes:	%{mklibname syck -d 0}
 
 %description -n	%{develname}
 Syck is an extension for reading and writing YAML swiftly in popular scripting
