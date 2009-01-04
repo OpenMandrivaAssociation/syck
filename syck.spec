@@ -5,7 +5,7 @@
 Summary:	A library for reading and writing YAML
 Name:		syck
 Version:	0.55
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	BSD (and D&R) 
 Group:		System/Libraries
 URL:		http://www.whytheluckystiff.net/syck/
