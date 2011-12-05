@@ -4,17 +4,16 @@
 
 Summary:	A library for reading and writing YAML
 Name:		syck
-Version:	0.55
-Release:	%mkrel 9
-License:	BSD (and D&R) 
+Version:	0.70
+Release:	1
+License:	BSD (and D&R)
 Group:		System/Libraries
-URL:		http://www.whytheluckystiff.net/syck/
+URL:		https://github.com/indeyets/syck/wiki
 Source0:	http://rubyforge.org/frs/download.php/4492/%{name}-%{version}.tar.gz
 Patch0:		syck-shared.diff
-BuildRequires:	autoconf2.5
+BuildRequires:	autoconf automake libtool
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	libtool
 BuildRequires:	re2c
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -35,7 +34,7 @@ language's symbol table.
 %package -n	%{develname}
 Summary:	Static library and header files for the syck library
 Group:		Development/C
-Requires:	%{libname} = %{version}
+Requires:	%{libname} >= %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Obsoletes:	%{mklibname syck -d 0}
@@ -54,41 +53,29 @@ This package contains the static syck library and its header files.
 
 %build
 export CFLAGS="%{optflags} -fPIC"
-
-export WANT_AUTOCONF_2_5=1
-rm -rf lib/.deps tests/.deps configure
+rm -rf autom4te.cache configure
 touch INSTALL NEWS AUTHORS ChangeLog
-libtoolize --copy --force; aclocal -I config; autoheader; automake --foreign --add-missing --copy; autoconf
+#libtoolize --copy --force; aclocal -I config; autoheader; automake --foreign --add-missing --copy; autoconf
+autoreconf -fi
 
 %configure2_5x \
-    --enable-shared
+    --enable-shared \
+    --disable-static
 
-%make
+make
 
 %install
 rm -rf %{buildroot}
 
 %makeinstall_std
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
+# cleanup
+rm -f %{buildroot}%{_libdir}/*.*a
 
 %files -n %{libname}
-%defattr(-,root,root)
 %doc CHANGELOG COPYING README README.BYTECODE README.EXT RELEASE TODO
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/*.a
-%{_libdir}/*.la
