@@ -1,0 +1,39 @@
+diff -Naur syck-0.70/configure.in syck-0.70.oden/configure.in
+--- syck-0.70/configure.in	2009-09-30 19:29:34.000000000 +0200
++++ syck-0.70.oden/configure.in	2011-12-05 16:58:46.604445355 +0100
+@@ -14,6 +14,7 @@
+ AC_PROG_MAKE_SET
+ AC_PROG_AWK
+ AM_PROG_LEX
++AC_PROG_LIBTOOL
+ 
+ AC_CHECK_PROGS(YACC, 'bison -y')
+ if test "$YACC" != "bison -y"; then
+diff -Naur syck-0.70/lib/Makefile.am syck-0.70.oden/lib/Makefile.am
+--- syck-0.70/lib/Makefile.am	2009-09-30 19:29:34.000000000 +0200
++++ syck-0.70.oden/lib/Makefile.am	2011-12-05 16:58:19.672263520 +0100
+@@ -7,10 +7,12 @@
+ .re.c:
+ 	$(REC) -i $< > $@.new && mv $@.new $@
+ 
+-lib_LIBRARIES = libsyck.a
++lib_LTLIBRARIES = libsyck.la
+ include_HEADERS = syck.h syck_st.h
+ 
+-libsyck_a_SOURCES = \
++libsyck_la_LDFLAGS  = -export-dynamic -version-info 0:0:0
++
++libsyck_la_SOURCES = \
+ 	emitter.c \
+ 	handler.c \
+ 	node.c \
+diff -Naur syck-0.70/tests/Makefile.am syck-0.70.oden/tests/Makefile.am
+--- syck-0.70/tests/Makefile.am	2009-09-30 19:29:34.000000000 +0200
++++ syck-0.70.oden/tests/Makefile.am	2011-12-05 16:59:26.570710847 +0100
+@@ -1,5 +1,5 @@
+ INCLUDES = -I$(top_srcdir)/lib
+-LDFLAGS = -L$(top_builddir)/lib
++AM_LDFLAGS = -L$(top_srcdir)/lib
+ 
+ TESTS = test-basic test-parse test-yts test-emit
+ noinst_PROGRAMS = test-basic test-parse test-yts test-emit
