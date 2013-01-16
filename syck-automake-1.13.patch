@@ -1,0 +1,13 @@
+--- syck-0.70/configure.in.bero	2013-01-16 02:46:57.492755125 +0100
++++ syck-0.70/configure.in	2013-01-16 02:47:04.308674559 +0100
+@@ -3,8 +3,8 @@ AC_INIT(syck, 0.70)
+ AC_CONFIG_AUX_DIR(config)
+ AC_PREREQ(2.50)
+ 
+-AM_INIT_AUTOMAKE(syck, 0.70)
+-AM_CONFIG_HEADER(config.h)
++AM_INIT_AUTOMAKE
++AC_CONFIG_HEADERS([config.h])
+ 
+ # Checks for programs.
+ AC_PROG_CC_STDC

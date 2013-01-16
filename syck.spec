@@ -11,6 +11,7 @@ Group:		System/Libraries
 URL:		https://github.com/indeyets/syck/wiki
 Source0:	http://rubyforge.org/frs/download.php/4492/%{name}-%{version}.tar.gz
 Patch0:		syck-shared.diff
+Patch1:		syck-automake-1.13.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -49,7 +50,7 @@ This package contains the static syck library and its header files.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
+%apply_patches
 
 %build
 export CFLAGS="%{optflags} -fPIC -DYYPARSE_PARAM=parser"
@@ -62,7 +63,8 @@ autoreconf -fi
     --enable-shared \
     --disable-static
 
-%make
+# Can't be built with -j12 yet
+make
 
 %install
 %makeinstall_std
