@@ -1,11 +1,11 @@
-%define major 0
+%define major	0
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
 
 Summary:	A library for reading and writing YAML
 Name:		syck
 Version:	0.70
-Release:	3
+Release:	4
 License:	BSD (and D&R)
 Group:		System/Libraries
 URL:		https://github.com/indeyets/syck/wiki
@@ -68,17 +68,22 @@ make
 
 %install
 %makeinstall_std
+mkdir %{buildroot}/%{_lib}
+mv %{buildroot}%{_libdir}/libsyck.so.%{major}* %{buildroot}/%{_lib}
+ln -srf %{buildroot}/%{_lib}/libsyck.so.%{major}.*.* %{buildroot}%{_libdir}/libsyck.so
 
 %files -n %{libname}
 %doc CHANGELOG COPYING README README.BYTECODE README.EXT RELEASE TODO
-%{_libdir}/*.so.%{major}*
+/%{_lib}/libsyck.so.%{major}*
 
 %files -n %{develname}
 %{_includedir}/*
-%{_libdir}/*.so
-
+%{_libdir}/libsyck.so
 
 %changelog
+* Thu Jan 17 2013 Per Øyvind Karlsen <peroyvind@mandriva.org> 0.70-4
+- move library under /%%{_lib} as it's required by /bin/rpm
+
 * Mon Dec 05 2011 Oden Eriksson <oeriksson@mandriva.com> 0.70-1
 + Revision: 737869
 - 0.70
