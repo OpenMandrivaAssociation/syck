@@ -1,6 +1,7 @@
 %define major	0
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
+%bcond_with	crosscompile
 
 Summary:	A library for reading and writing YAML
 Name:		syck
@@ -53,6 +54,9 @@ This package contains the static syck library and its header files.
 %apply_patches
 
 %build
+%if %{with crosscompile}
+export ac_cv_func_malloc_0_nonnull=yes
+%endif
 export CFLAGS="%{optflags} -fPIC -DYYPARSE_PARAM=parser"
 rm -rf autom4te.cache configure
 touch INSTALL NEWS AUTHORS ChangeLog
