@@ -1,4 +1,4 @@
-%define major	0
+%define major 0
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
 %bcond_with	crosscompile
@@ -6,7 +6,7 @@
 Summary:	A library for reading and writing YAML
 Name:		syck
 Version:	0.70
-Release:	5
+Release:	6
 License:	BSD (and D&R)
 Group:		System/Libraries
 URL:		https://github.com/indeyets/syck/wiki
@@ -68,7 +68,7 @@ autoreconf -fi
     --disable-static
 
 # Can't be built with -j12 yet
-make
+%make -j1
 
 %install
 %makeinstall_std
@@ -77,10 +77,10 @@ mv %{buildroot}%{_libdir}/libsyck.so.%{major}* %{buildroot}/%{_lib}
 ln -srf %{buildroot}/%{_lib}/libsyck.so.%{major}.*.* %{buildroot}%{_libdir}/libsyck.so
 
 %files -n %{libname}
-%doc CHANGELOG COPYING README README.BYTECODE README.EXT RELEASE TODO
 /%{_lib}/libsyck.so.%{major}*
 
 %files -n %{develname}
+%doc CHANGELOG COPYING README README.BYTECODE README.EXT RELEASE TODO
 %{_includedir}/*
 %{_libdir}/libsyck.so
 
