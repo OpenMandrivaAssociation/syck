@@ -6,7 +6,7 @@
 Summary:	A library for reading and writing YAML
 Name:		syck
 Version:	0.70
-Release:	12
+Release:	13
 License:	BSD (and D&R)
 Group:		System/Libraries
 URL:		https://github.com/indeyets/syck/wiki
