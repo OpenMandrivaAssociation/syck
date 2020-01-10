@@ -52,7 +52,7 @@ This package contains the static syck library and its header files.
 
 %prep
 %setup -q -n %{name}-%{version}
-%apply_patches
+%autopatch -p1
 
 %build
 %if %{with crosscompile}
