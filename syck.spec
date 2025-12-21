@@ -14,6 +14,8 @@ Source0:	http://rubyforge.org/frs/download.php/4492/%{name}-%{version}.tar.gz
 Patch0:		syck-shared.diff
 Patch1:		syck-automake-1.13.patch
 Patch2:		syck-bison3.patch
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
